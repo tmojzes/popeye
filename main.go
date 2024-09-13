@@ -12,11 +12,11 @@ import (
 )
 
 func init() {
-	mod := os.O_CREATE | os.O_APPEND | os.O_WRONLY
-	if file, err := os.OpenFile(pkg.LogFile, mod, 0644); err == nil {
+	mod := os.O_APPEND | os.O_WRONLY
+	if file, err := os.OpenFile(pkg.LogFile, mod, 0o644); err == nil {
 		log.Logger = log.Output(zerolog.ConsoleWriter{Out: file})
 	} else {
-		fmt.Printf("Unable to create Popeye log file %v. Exiting...", err)
+		fmt.Printf("Unable to create Popeye log file %v. Exiting...\n", err)
 		os.Exit(1)
 	}
 }
